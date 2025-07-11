@@ -1,15 +1,26 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   template: `
-    <h1>Welcome to {{title}}!</h1>
-
-    <router-outlet />
+    <app-header />
+    <main>
+      <router-outlet />
+    </main>
+    <app-footer />
   `,
-  styles: [],
+  styles: [
+    `
+      main {
+        width: 100%;
+        height: 90%;
+      }
+    `,
+  ],
 })
 export class AppComponent {
   title = 'AccordiaTaskWeb';
