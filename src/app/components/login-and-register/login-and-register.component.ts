@@ -22,10 +22,8 @@ export class LoginAndRegisterComponent {
 
     if (formType === 'login') {
       console.log(`Login mode.\n Email is: ${this.email()}; Password is: ${this.password()}`);
-      // Perform login
     } else {
       console.log(`Register mode.\n Email is: ${this.email()}; Password is: ${this.password()}`);
-      // Perform registration
     }
   }
 }
