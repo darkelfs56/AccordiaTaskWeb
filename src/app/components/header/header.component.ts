@@ -25,6 +25,7 @@ export class HeaderComponent {
       },
       error: () => {
         this.userService.currentUser.set(null);
+        this.router.navigate(['/']);
       }
     })
   }
