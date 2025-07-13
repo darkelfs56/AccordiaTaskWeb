@@ -1,3 +1,11 @@
+@use '../../styles/variables.scss' as variables;
+
+#login-and-register-parent-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #login-and-register-form {
   min-width: 280px;
   width: 400px;
@@ -5,7 +13,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #d9d9d9;
+  background-color: variables.$huemint-tangerine;
   text-align: center;
   justify-items: center;
   align-items: center;
@@ -22,9 +30,12 @@
     border-radius: 8px;
     font-size: medium;
     font-weight: bold;
+    background-color: variables.$orange-dark;
+    border: 1px transparent solid;
+    color: black;
     &:hover {
       cursor: pointer;
-      background-color: #777;
+      background-color: variables.$orange-light;
     }
   }
 }
@@ -59,7 +70,7 @@
     text-decoration-line: underline;
     text-decoration-thickness: 4px;
     text-underline-offset: 6px;
-    text-decoration-color: blue;
+    text-decoration-color: variables.$orange-primary;
   }
 }
 
@@ -71,14 +82,15 @@
   text-decoration-line: underline;
   text-decoration-thickness: 4px;
   text-underline-offset: 6px;
-  text-decoration-color: blue;
+  text-decoration-color: variables.$orange-primary;
 }
 
 #description-div {
   display: flex;
   max-width: 220px;
   overflow-wrap: break-word;
-  font-size: 20px;
+  font-size: 16px;
+  color: black;
 }
 
 #login-and-register-input-div {
@@ -87,7 +99,8 @@
   min-width: 220px;
   gap: 16px;
 
-  > input {
+  > div > input {
+    width: 100%;
     height: 32px;
     border-radius: 6px;
     &:focus {
@@ -95,3 +108,15 @@
     }
   }
 }
+
+.error-message {
+  color: red;
+  font-size: medium;
+  margin-top: 4px;
+}
+
+.server-error {
+  font-weight: bold;
+  margin-top: 12px;
+}
+

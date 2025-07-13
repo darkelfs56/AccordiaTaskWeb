@@ -1,24 +1,68 @@
-<div id="login-and-register-form">
-  <div id="login-and-register-selector-div">
-    <div (click)="selectForm('login')" [class.active]="selectedForm() === 'login'">
-      <p>Login</p>
+<div id="login-and-register-parent-div">
+  <form id="login-and-register-form" (ngSubmit)="handleSubmit()">
+
+    <!-- Form selector -->
+    <div id="login-and-register-selector-div">
+      <div
+        (click)="selectForm('login')"
+        [class.active]="selectedForm() === 'login'"
+      >
+        <p>Login</p>
+      </div>
+      <div
+        (click)="selectForm('register')"
+        [class.active]="selectedForm() === 'register'"
+      >
+        <p>Register</p>
+      </div>
     </div>
-    <div (click)="selectForm('register')" [class.active]="selectedForm() === 'register'">
-      <p>Register</p>
+
+    <!-- Description -->
+    <div id="description-div">
+      <p>Chat and evaluate your resume with our AI chatbot</p>
     </div>
-  </div>
 
-  <div id="description-div">
-    <p>Chat and evaluate your resume with our AI chatbot</p>
-  </div>
+    <!-- Inputs -->
+    <div id="login-and-register-input-div">
+      <div>
+        <input
+          type="email"
+          class="login-and-register-input"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Email"
+          required
+        />
+        @if (emailError()) {
+          <div class="error-message">{{ emailError() }}</div>
+        }
+      </div>
 
-  <div id="login-and-register-input-div">
-    <input type="email" [value]="email()" [(ngModel)]="email" placeholder="Email" />
-    <input type="password" [value]="password()" [(ngModel)]="password" placeholder="Password" />
-  </div>
+      <div>
+        <input
+          type="password"
+          class="login-and-register-input"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Password"
+          required
+        />
+        @if (passwordError()) {
+          <div class="error-message">{{ passwordError() }}</div>
+        }
+      </div>
+    </div>
 
-  <button (click)="handleSubmit()">
-    {{ selectedForm() === 'login' ? 'Login' : 'Register' }}
-  </button>
+    <!-- Submit button -->
+    <button type="submit">
+      {{ selectedForm() === 'login' ? 'Login' : 'Register' }}
+    </button>
+  </form>
+
+  <!-- Server error -->
+  @if (errorMessage()) {
+    <div class="error-message server-error">
+      {{ errorMessage() }}
+    </div>
+  }
 </div>
-

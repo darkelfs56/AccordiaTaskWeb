@@ -1,3 +1,5 @@
+@use '../../styles/variables.scss' as variables;
+
 footer {
   position: fixed;
   left: 0;
@@ -6,6 +8,7 @@ footer {
   background-color: #333;
   color: white;
   text-align: center;
+  background-color: variables.$orange-primary;
 
   > p {
     cursor: pointer;
