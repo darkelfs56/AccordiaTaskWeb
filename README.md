@@ -1,6 +1,16 @@
 # AccordiaTaskWeb
 
+## Project Introduction
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+<br></br>
+
+This is the frontend UI and logic code of building a web app per Accordia task requirements.
+This web app project is about an AI Resume Chatbot, where user can chat with the chatbot about their resume (would be able to upload their resume, can also copy paste text) and also send any job links to the AI chatbot where if it manages to access it, it should be able to tell the user more about the job and also compare it against the user's resume.
+
+### Image Reference
+![Screenshot of the web app showing a user sending an accessible URL of a job description to Google Gemini in the web app](https://github.com/darkelfs56/AccordiaTaskWeb/assets/images/Angular_AIResumeChatbot.png)
+
+<br></br>
 
 ## Development server
 
