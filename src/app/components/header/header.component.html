@@ -6,13 +6,16 @@
 
     <div class="nav-side right">
       @if (userService.currentUser() && router.url.includes("/chat")) {
-      <div class="user-menu">
-        <span class="user-email" (click)="toggleMenu()">{{ userService.currentUser()!.email.replace(userRegex(), "") }}</span>
+      <div class="user-menu" (mouseenter)="openMenu()" (mouseleave)="closeMenu()">
+        <div class="user-menu-button">
+          <span class="user-email">{{ userService.currentUser()!.email.replace(userRegex(), "") }}</span>
+        </div>
+
         @if (menuOpen()) {
-          <div class="user-dropdown">
-            <button (click)="logout()">Logout</button>
-          </div>
-        }
+        <div class="user-dropdown">
+          <button (click)="logout()">Logout</button>
+        </div>
+      }
       </div>
     }
     </div>
