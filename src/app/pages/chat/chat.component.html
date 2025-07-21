@@ -2,23 +2,23 @@
   <div class="messages-container">
       <div class="empty-state">
         <i class="icon-chat"></i>
-        <p>Start a conversation with Gemini, your AI Resume Chatbot!</p>
+        <p>Start a conversation with Groq, your AI Resume Chatbot!</p>
       </div>
     
-    @for (message of geminiService.messages(); track message.timestamp) {
+    @for (message of AIChatbotService.messages(); track message.timestamp) {
       <div class="message" [class.user-message]="message.role === 'user'" [class.assistant-message]="message.role === 'assistant'">
         <div class="message-header">
-          <span class="role">{{ message.role === 'user' ? 'You' : 'Gemini' }}</span>
+          <span class="role">{{ message.role === 'user' ? 'You' : 'Groq' }}</span>
           <span class="timestamp">{{ message.timestamp | date: 'short' }}</span>
         </div>
         <div class="message-content">{{ message.content }}</div>
       </div>
     }
     
-    @if (geminiService.isLoading()) {
+    @if (AIChatbotService.isLoading()) {
       <div class="message assistant-message loading">
         <div class="message-header">
-          <span class="role">Gemini</span>
+          <span class="role">Groq</span>
         </div>
         <div class="typing-indicator">
           <span></span>
@@ -28,10 +28,10 @@
       </div>
     }
     
-    @if (geminiService.error()) {
+    @if (AIChatbotService.error()) {
       <div class="error-message">
         <i class="icon-error"></i>
-        {{ geminiService.error() }}
+        {{ AIChatbotService.error() }}
       </div>
     }
   </div>
@@ -41,7 +41,7 @@
     <textarea
       [(ngModel)]="userInput"
       (keypress)="handleKeyPress($event)"
-      placeholder="Ask Gemini about your resume or interested job..."
+      placeholder="Ask Groq about your resume or interested job..."
       class="message-input"
       rows="3"
     ></textarea>
