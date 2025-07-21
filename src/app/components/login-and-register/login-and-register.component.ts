@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
 import { Router } from '@angular/router';
+import { extractHttpError } from '../../utils/extract-http-error';
 
 type LoginAndRegisterData = {
   email: string;
@@ -49,15 +50,6 @@ export class LoginAndRegisterComponent {
     return isValid;
   }
 
-  extractHttpError(err: any): string {
-    console.log(`err is: ${err}`);
-    if (err?.status && err?.error?.message) {
-      return err.error.message;
-    }
-
-    return 'An unexpected error occurred.';
-  }
-
   selectForm(form: 'login' | 'register') {
     this.selectedForm.set(form);
   }
@@ -69,7 +61,7 @@ export class LoginAndRegisterComponent {
       .loginUser(data)
       .pipe(
         catchError((err) => {
-          const msg = this.extractHttpError(err);
+          const msg = extractHttpError(err);
           this.errorMessage.set(msg);
           throw err;
         })
@@ -89,7 +81,7 @@ export class LoginAndRegisterComponent {
       .registerUser(data)
       .pipe(
         catchError((err) => {
-          const msg = this.extractHttpError(err);
+          const msg = extractHttpError(err);
           this.errorMessage.set(msg);
           throw err;
         })
