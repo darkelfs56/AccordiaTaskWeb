@@ -11,7 +11,7 @@ This web app project is about an AI Resume Chatbot, where user can chat with the
 - [Backend repository here](https://github.com/darkelfs56/AccordiaTaskWebBackend)
 
 ### Image Reference
-![Screenshot of the web app showing a user sending an accessible URL of a job description to Google Gemini in the web app](assets/images/Angular_AIResumeChatbot.png)
+![Screenshot of the web app showing a user interacting with the AI Resume Chatbot in the web app](assets/images/AccordiaTaskWeb_ScrollingCapture.png)
 
 <br></br>
 

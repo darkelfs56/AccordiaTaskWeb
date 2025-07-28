@@ -67,6 +67,9 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "allowedHosts": ["accordia-task-web.ngrok.dev", "accordia-task-web-api.ngrok.dev"]
+          },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {

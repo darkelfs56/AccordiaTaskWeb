@@ -22,8 +22,51 @@ export class AIChatbotService {
   http = inject(HttpClient);
 
   messages = signal<Message[]>([]);
-  isLoading = signal(false);
+  isLoading = signal(true);
   error = signal<string | null>(null);
+
+  async uploadPdf(formData: FormData) {
+    const apiUrl = environment.apiUrl + '/aichatbot/upload-pdf';
+
+    return this.http
+      .post(apiUrl, formData, {
+        withCredentials: true,
+      })
+      .pipe(
+        catchError((err) => {
+          const errMsg =
+            err instanceof Error
+              ? extractHttpError(err)
+              : 'Something went wrong with Groq API';
+          this.error.set(errMsg);
+          throw err;
+        })
+      );
+  }
+  
+  async getGreetMessage() {
+    const apiUrl = environment.apiUrl + '/aichatbot/greet-message';
+    
+    this.http.get<{ message: string }>(apiUrl, {
+      withCredentials: true,
+    }).pipe(
+      catchError((err) => {
+        const errMsg = err instanceof Error ? extractHttpError(err) : 'Something went wrong with Groq API';
+        this.error.set(errMsg);
+        throw err;
+      })
+    ).subscribe((response) => {
+      const text = response.message ?? '';
+      const botGreetMessage: Message = {
+        role: MessageAuthorRole.ASSISTANT,
+        content: text,
+        timestamp: new Date(),
+      };
+      console.log(`message is: ${botGreetMessage}`);
+      this.messages.update((messages) => [...messages, botGreetMessage]);
+      this.isLoading.set(false);
+    })
+  }
 
   async sendMessage(userInput: string) {
     if (!userInput.trim()) return;
@@ -66,19 +109,22 @@ export class AIChatbotService {
 
   async getMessageHistory() {
     const apiUrl = environment.apiUrl + '/aichatbot/message-history';
-    this.http.get(apiUrl).pipe(
-      catchError((err) => {
-        const errMsg =
-          err instanceof Error
-            ? extractHttpError(err)
-            : 'Something went wrong with Groq API';
-        this.error.set(errMsg);
-        throw err;
-      })
-    ).subscribe((response) => {
-      console.log(`response is:\n`);
-      console.dir(response, { depth: Infinity });
-    });
+    this.http
+      .get(apiUrl)
+      .pipe(
+        catchError((err) => {
+          const errMsg =
+            err instanceof Error
+              ? extractHttpError(err)
+              : 'Something went wrong with Groq API';
+          this.error.set(errMsg);
+          throw err;
+        })
+      )
+      .subscribe((response) => {
+        console.log(`response is:\n`);
+        console.dir(response, { depth: Infinity });
+      });
   }
 
   clearChat() {
