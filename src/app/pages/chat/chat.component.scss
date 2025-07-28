@@ -184,6 +184,21 @@
   }
 }
 
+.upload-container {
+  display: flex;
+  align-items: center;
+}
+
+.upload-label {
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.icon-plus {
+  font-size: 24px;
+  color: #555;
+}
+
 .send-button {
   display: flex;
   align-items: center;

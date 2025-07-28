@@ -1,52 +1,77 @@
 <div class="chat-container">
   <div class="messages-container">
-      <div class="empty-state">
-        <i class="icon-chat"></i>
-        <p>Start a conversation with Gemini, your AI Resume Chatbot!</p>
+    <div class="empty-state">
+      <i class="icon-chat"></i>
+      <p>Start a conversation with Groq, your AI Resume Chatbot!</p>
+    </div>
+
+    @for (message of AIChatbotService.messages(); track message.timestamp) {
+    <div
+      class="message"
+      [class.user-message]="message.role === 'user'"
+      [class.assistant-message]="message.role === 'assistant'"
+    >
+      <div class="message-header">
+        <span class="role">{{ message.role === "user" ? "You" : "Groq" }}</span>
+        <span class="timestamp">{{ message.timestamp | date : "short" }}</span>
       </div>
-    
-    @for (message of geminiService.messages(); track message.timestamp) {
-      <div class="message" [class.user-message]="message.role === 'user'" [class.assistant-message]="message.role === 'assistant'">
-        <div class="message-header">
-          <span class="role">{{ message.role === 'user' ? 'You' : 'Gemini' }}</span>
-          <span class="timestamp">{{ message.timestamp | date: 'short' }}</span>
-        </div>
-        <div class="message-content">{{ message.content }}</div>
+      <div markdown [data]="message.content" class="message-content"></div>
+    </div>
+    } @if (AIChatbotService.isLoading()) {
+    <div class="message assistant-message loading">
+      <div class="message-header">
+        <span class="role">Groq</span>
       </div>
+      <div class="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    } 
+    @if (userLoading()) {
+    <div class="message user-message loading">
+      <div class="message-header">
+        <span class="role">You</span>
+      </div>
+      <div class="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
     }
-    
-    @if (geminiService.isLoading()) {
-      <div class="message assistant-message loading">
-        <div class="message-header">
-          <span class="role">Gemini</span>
-        </div>
-        <div class="typing-indicator">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    }
-    
-    @if (geminiService.error()) {
-      <div class="error-message">
-        <i class="icon-error"></i>
-        {{ geminiService.error() }}
-      </div>
+    @if (AIChatbotService.error()) {
+    <div class="error-message">
+      <i class="icon-error"></i>
+      {{ AIChatbotService.error() }}
+    </div>
     }
   </div>
-  
+
   <!-- User input container -->
   <div class="input-container">
     <textarea
       [(ngModel)]="userInput"
       (keypress)="handleKeyPress($event)"
-      placeholder="Ask Gemini about your resume or interested job..."
+      placeholder="Ask Groq about your resume or interested job..."
       class="message-input"
       rows="3"
     ></textarea>
-    <button 
-      (click)="sendMessage()" 
+    <div class="upload-container">
+      <label class="upload-label" for="fileUpload">
+        <strong class="icon-plus">+</strong>
+      </label>
+      <input
+        type="file"
+        id="fileUpload"
+        (change)="handleFileUpload($event)"
+        accept=".pdf"
+        hidden
+      />
+    </div>
+    <button
+      (click)="sendMessage()"
       [disabled]="isSendDisabled()"
       class="send-button"
     >

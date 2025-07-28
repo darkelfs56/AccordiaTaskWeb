@@ -33,22 +33,25 @@
 
 .user-menu {
   position: relative;
-  font-weight: 500;
-  color: variables.$text-primary;
-  background-color: variables.$background-white;
   border-radius: 8px;
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  background-color: variables.$background-white;
   box-shadow: variables.$shadow-sm;
 
-  &:hover {
-    background-color: variables.$orange-light;
-  }
+  .user-menu-button {
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
 
-  .user-email {
-    font-size: 14px;
-    color: variables.$text-secondary;
+    &:hover {
+      background-color: variables.$orange-light;
+    }
+
+    .user-email {
+      font-size: 14px;
+      font-weight: 500;
+      color: variables.$text-secondary;
+    }
   }
 
   .user-dropdown {
@@ -59,29 +62,25 @@
     border-radius: 8px;
     box-shadow: variables.$shadow-md;
     min-width: 140px;
-    padding: 0;
     z-index: 999;
 
     button {
       display: block;
       width: 100%;
-      height: 100%;
-      border-radius: 8px;
       padding: 8px 16px;
-      background: none;
       border: none;
+      background: none;
+      border-radius: 8px;
       text-align: left;
-      color: variables.$text-primary;
       font-size: 14px;
       font-weight: 500;
+      color: variables.$text-primary;
       cursor: pointer;
       transition: background-color 0.2s;
 
       &:hover {
         background-color: variables.$orange-light;
-        color: variables.$text-primary;
       }
     }
   }
 }
-

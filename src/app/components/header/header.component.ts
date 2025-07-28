@@ -17,6 +17,7 @@ export class HeaderComponent {
 
   title = signal('AI Resume Chatbot');
   menuOpen = signal(false);
+  menuTimeout: any = null;
   
   constructor() {
     this.userService.getUser().pipe(take(1)).subscribe({
@@ -30,8 +31,15 @@ export class HeaderComponent {
     })
   }
 
-  toggleMenu() {
-    this.menuOpen.update(open => !open);
+  openMenu() {
+    this.menuOpen.update(() => true);
+    clearTimeout(this.menuTimeout);
+  }
+
+  closeMenu() {
+    this.menuTimeout = setTimeout(() => {
+      this.menuOpen.update(() => false);
+    }, 200);
   }
 
   logout() {
